@@ -1,0 +1,24 @@
+<section class="px-[80px] py-5 bg-transparent">
+  <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-row space-x-10 items-center">
+      <a href="/" class="text-3xl font-medium">Conversor</a>
+      <a
+        href="/planes"
+        class="mt-2 font-normal hover:underline-offset-4 hover:underline"
+        >Planes</a
+      >
+    </div>
+
+    <div>
+      @if (!logged) {
+      <a class="bg-black text-white rounded-2xl px-3 py-2" href="/login"
+        >Iniciar sesion</a
+      >
+      } @else {
+      <a class="bg-black text-white rounded-2xl px-3 py-2" href="/login"
+        >Iniciar sesion</a
+      >
+      }
+    </div>
+  </div>
+</section>
