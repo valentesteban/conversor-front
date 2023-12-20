@@ -1,0 +1,76 @@
+<div class="flex justify-center items-center min-h-[80vh] p-4 md:p-0">
+  <div class="w-full md:max-w-lg bg-base-100 shadow-xl rounded-xl">
+    <div class="card-body bg-black gap-0 rounded-[20px]">
+      <div class="flex flex-col space-y-10 items-center justify-center">
+        <img src="https://res.cloudinary.com/dw0u1mvt1/image/upload/v1703082915/Money_hjsfbp.png" alt="Money icon" width="100" height="100">
+        <h2 class="text-[30px] text-white font-medium">Inicia sesion</h2>
+      </div>
+
+      <form #form (ngSubmit)="onSubmit()">
+        <div class="flex flex-col mt-8 gap-4">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text text-white">Usuario</span>
+            </label>
+            <input
+              type="text"
+              [formControl]="email"
+              id="username"
+              name="username"
+              placeholder="Nombre de usuario"
+              class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+              (input)="errorAuth = false"
+            />
+            @if (email.errors && email.touched) {
+            <p class="mt-2 text-xs text-red-500">
+              {{ parseErrors(email.errors) }}
+            </p>
+            }
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text text-white">Contraseña</span>
+            </label>
+            <input
+              type="password"
+              [formControl]="password"
+              id="password"
+              name="password"
+              placeholder="Contraseña"
+              class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+              (input)="errorAuth = false"
+            />
+            @if (password.errors && password.touched) {
+            <p class="mt-2 text-xs text-red-500">
+              {{ parseErrors(password.errors) }}
+            </p>
+            }
+          </div>
+        </div>
+        @if (errorAuth) {
+        <p class="mt-4 text-red-500 text-sm">
+          La combinación de usuario y contraseña no es correcta. Por favor,
+          intente nuevamente.
+        </p>
+        }
+
+        <div class="card-actions w-full mt-[60px] flex items-center justify-center">
+          <button type="submit" class="bg-white text-black rounded-2xl py-1 px-7 text-[20px]">
+            Ingresar @if (loading) {
+            <span class="loading loading-spinner loading-sm"></span>
+            }
+          </button>
+        </div>
+
+        <div
+          class="m-4 flex flex-col items-center justify-center gap-3 text-gray-200"
+        >
+          <a href="/register" class="hover:underline"
+            >¿No tienes cuenta? Registrate</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
