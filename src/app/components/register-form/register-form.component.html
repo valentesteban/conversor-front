@@ -1,0 +1,150 @@
+<form #form (ngSubmit)="onSubmit()">
+      <div class="flex flex-col mt-4 gap-2">
+        <div class="form-control w-full grid grid-cols-2 gap-3">
+          <div>
+            <label class="label">
+              <span class="label-text text-white">Nombre</span>
+            </label>
+            <input
+              type="text"
+              [formControl]="firstName"
+              required
+              id="firstName"
+              name="firstName"
+              placeholder="Esteban"
+              class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+            />
+            @if (firstName.errors && firstName.touched) {
+            <p class="mt-2 text-xs text-red-500">
+              {{ parseErrors(firstName.errors) }}
+            </p>
+            }
+          </div>
+    
+          <div>
+            <label class="label">
+              <span class="label-text text-white">Apellido</span>
+            </label>
+            <input
+              type="text"
+              required
+              [formControl]="lastName"
+              id="lastName"
+              name="lastName"
+              placeholder="Valente"
+              class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+            />
+            @if (lastName.errors && lastName.touched) {
+            <p class="mt-2 text-xs text-red-500">
+              {{ parseErrors(lastName.errors) }}
+            </p>
+            }
+          </div>
+        </div>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text text-white">Nombre de usuario</span>
+          </label>
+          <input
+            type="text"
+            [formControl]="username"
+            required
+            minlength="4"
+            id="username"
+            name="username"
+            placeholder="valentesteban"
+            class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+          />
+          @if (username.errors && username.touched) {
+          <p class="mt-2 text-xs text-red-500">
+            {{ parseErrors(username.errors) }}
+          </p>
+          }
+        </div>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text text-white">Email</span>
+          </label>
+          <input
+            type="text"
+            [formControl]="email"
+            required
+            id="email"
+            name="email"
+            placeholder="ejvalente@mail.austral.edu.ar"
+            class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+          />
+          @if (email.errors && email.touched) {
+          <p class="mt-2 text-xs text-red-500">
+            {{ parseErrors(email.errors) }}
+          </p>
+        }
+          @if (emailExists) {
+          <p class="mt-2 text-xs text-red-500">
+            El email ingresado ya se encuentra registrado
+          </p>
+          
+          }
+        </div>
+    
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text text-white">Contraseña</span>
+          </label>
+          <input
+            type="password"
+            [formControl]="password"
+            id="password"
+            name="password"
+            (input)="passwordMatch = true"
+            placeholder="Contraseña"
+            class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+          />
+          @if (password.errors && password.touched) {
+          <p class="mt-2 text-xs text-red-500">
+            {{ parseErrors(password.errors) }}
+          </p>
+          }
+        </div>
+    
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text text-white">Repetir contraseña</span>
+          </label>
+          <input
+            type="password"
+            [formControl]="repeatPassword"
+            id="repeatPassword"
+            (input)="passwordMatch = true"
+            name="repeatPassword"
+            placeholder="Repetir contraseña"
+            class="input input-bordered w-full bg-[#444141] text-white placeholder:text-white/20"
+          />
+          @if (repeatPassword.errors && repeatPassword.touched) {
+          <p class="mt-2 text-xs text-red-500">
+            {{ parseErrors(repeatPassword.errors) }}
+          </p>
+          } @if (!passwordMatch) {
+          <p class="mt-2 text-xs text-red-500">
+            Las contraseñas ingresadas no coinciden
+          </p>
+          }
+        </div>
+      </div>
+    
+      <div class="card-actions w-full mt-[60px] flex items-center justify-center">
+        <button type="submit" class="bg-white text-black rounded-2xl py-1 px-7 text-[20px">
+          Registrarme @if (loading) {
+          <span class="loading loading-spinner loading-sm"></span>
+          }
+        </button>
+      </div>
+    
+      <div
+        class="m-4 flex flex-col items-center justify-center gap-3 text-gray-200"
+      >
+        <a href="/login" class="hover:underline"
+          >¿Ya tenes cuenta? Inicia sesion</a
+        >
+      </div>
+    </form>
