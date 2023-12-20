@@ -1,0 +1,108 @@
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body flex text-start gap-0">
+    <div
+      class="grid grid-cols-3 items-start relative justify-start mt-6 border-b border-gray-300 border-opacity-50 pb-8"
+    >
+      <app-coins
+        [(actual)]="from"
+        [coins]="coins"
+        type="from"
+        [(result)]="result"
+      ></app-coins>
+
+      <div class="flex flex-col items-center relative left-2 text-xs">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-12 h-12 mx-auto hover:scale-110 cursor-pointer"
+          (click)="swapCoins()"
+          id="Swap"
+        >
+          <path
+            d="M13.98 22 6 30l7.98 8v-6H28v-4H13.98v-6zM42 18l-7.98-8v6H20v4h14.02v6L42 18z"
+            fill="#f8fefe"
+            class="color000000 svgShape"
+          ></path>
+          <path fill="none" d="M0 0h48v48H0z"></path>
+        </svg>
+        <p class="select-none">Cambiar</p>
+      </div>
+      <app-coins
+        [(actual)]="to"
+        type="to"
+        [coins]="coins"
+        [(result)]="result"
+      ></app-coins>
+    </div>
+    @if (!logged) {
+    <button class="btn btn-disabled w-full mt-4">
+      ¡Inicia sesión para comenzar!
+    </button>
+    }@else {
+
+    <form class="grid grid-cols-4 gap-3 mt-6" (submit)="convert()">
+      <input
+        type="number"
+        [formControl]="amount"
+        placeholder="Ingresa una cantidad"
+        class="input input-bordered w-full col-span-3"
+      />
+      <button
+        [disabled]="!canConvert()"
+        type="submit"
+        class="btn btn-secondary col-span-1"
+      >
+        Convertir @if (loading) {
+        <span class="loading loading-spinner loading-sm"></span>
+        }
+      </button>
+    </form>
+
+    @if (amount.errors != null && amount.touched) {
+    <p class="text-red-500 mt-2 text-sm">{{ parseErrors(amount.errors) }}</p>
+    } @if (amount.errors == null && error) {
+    <p class="text-red-500 mt-2 text-sm">{{ error }}</p>
+    } @if (exchangeSuccess) {
+    <div class="toast toast-end">
+      <div class="alert alert-info bg-accent font-semibold">
+        <span>¡Conversión realizada correctamente!</span>
+      </div>
+    </div>
+    }
+    <div
+      class="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4 items-start transition-all"
+    >
+      <p>
+        Valor de la convertibilidad de
+        <span class="text-accent font-semibold">{{ from?.code }}</span> a
+        <span class="text-accent font-semibold">{{ to?.code }}</span
+        >:
+        <br />
+        <span class="bg-accent px-3 py-1 bg-opacity-70 animate-bounce text-xl"
+          >{{ result.toFixed(2) }} {{ to?.code }}</span
+        >
+      </p>
+
+      <div class="flex md:justify-end justify-normal">
+        @if (exchangesLimit()) {
+        <p class="text-red-500 md:justify-end justify-normal flex">
+          ¡Has alcanzado el límite de conversiones!
+        </p>
+        }@else { @if (exchangesRemaining() == -1) {
+        <p class="text-green-400 md:justify-end justify-normal flex">
+          ¡Tú plan no tiene límite de conversiones!
+        </p>
+        }@else {
+        <div class="flex gap-1 items-center">
+          <p>
+            Cantidad de conversiones restantes:
+            <span class="{{ color }} font-semibold">{{
+              exchangesRemaining()
+            }}</span>
+          </p>
+        </div>
+        } }
+      </div>
+    </div>
+    }
+  </div>
+</div>
