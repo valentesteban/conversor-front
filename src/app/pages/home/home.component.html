@@ -1,0 +1,36 @@
+<section class="mt-20">
+  <div class="hero flex flex-col">
+    <div class="hero-content flex flex-col items-center justify-center">
+      <h1 class="text-[40px] font-semibold">
+        El mejor conversor de monedas de Latinoamerica
+      </h1>
+      <p class="text-[20px] max-w-2xl text-center leading-6">
+        Nos enfocamos en la conversion de monedas desde 1920 hemos generado mas
+        de 100M de conversiones.
+      </p>
+    </div>
+
+    @if (!logged) {
+    <div
+      class="flex flex-col items-center bg-black rounded-2xl w-[1000px] mt-[120px] space-y-10 py-[50px] px-5"
+    >
+      <img src="https://res.cloudinary.com/dw0u1mvt1/image/upload/v1703081447/Alert_kfkpyw.png" alt="Alert image" />
+      <h2 class="text-white text-[20px]">
+        ¡Necesitas iniciar sesion para realizar esta acción!
+      </h2>
+      <a
+        class="bg-white text-black rounded-2xl text-center w-fit py-2 px-4 mt-4"
+        href="/login"
+        >Iniciar sesion</a
+      >
+    </div>
+    } @else {
+    <app-exchange
+      [coins]="coins"
+      [exchanges]="exchanges"
+      [plan]="plan"
+      [user]="user"
+    ></app-exchange>
+    }
+  </div>
+</section>
