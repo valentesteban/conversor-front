@@ -1,0 +1,35 @@
+<div class="dropdown w-full transition-all">
+      <label tabindex="0" class="btn m-1 w-full justify-start items-center">
+        <span>
+          {{ actual?.code }}
+        </span>
+      </label>
+      <ul
+        tabindex="0"
+        id="{{ type }}-dropdown-currency"
+        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 max-h-[200px] overflow-y-auto flex-col flex-nowrap"
+      >
+        <input
+          type="text"
+          placeholder="Buscar siglas..."
+          class="input input-bordered w-full p-2"
+          (input)="changeFind()"
+        />
+        @if (coinCopy.length == 0) {
+        <li class="py-1">
+          <div class="flex gap-2 flex-row">
+            <a class="whitespace-break-spaces">No se encontraron resultados</a>
+          </div>
+        </li>
+        }@else {
+        <li *ngFor="let foreing of currenciesCopy" class="py-1">
+          <div (click)="updateCoin(foreing)" class="flex gap-2 flex-row">
+            <a class="">{{ foreing.code }} - {{ foreing.name }}</a>
+          </div>
+        </li>
+        }
+      </ul>
+      <p class="relative left-2 text-sm select-none">
+        Valor IC: {{ actual?.value }}
+      </p>
+    </div>
